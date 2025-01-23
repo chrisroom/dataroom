@@ -1,0 +1,22 @@
+# Ignoriere alle virtuellen Umgebungen
+venv/
+**/venv/
+
+# Allgemeine Python-Ausschlüsse
+*.pyc
+*.pyo
+__pycache__/
+*.pytest_cache
+
+# Git-Dateien
+.git
+.gitignore
+
+# IDE-Dateien (optional)
+*.vscode/
+.idea/
+
+# Andere temporäre Dateien
+*.log
+*.swp
+.DS_Store

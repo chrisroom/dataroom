@@ -1,0 +1,33 @@
+FROM python:3.10-slim
+
+# Arbeitsverzeichnis festlegen
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y curl
+
+# Copy requirements
+#COPY requirements.txt /app/requirements.txt
+
+# Remove any existing virtual environment
+RUN rm -rf /app/venv
+
+# Create the virtual environment
+RUN python3 -m venv /app/venv
+
+# Activate the virtual environment and install dependencies
+#RUN pip install --upgrade pip && pip install -r /app/requirements.txt
+
+# Installieren von abctl
+RUN curl -LsfS https://get.airbyte.com | bash - 
+   # && mv /root/.local/bin/abctl /usr/local/bin/abctl \
+   # && chmod +x /usr/local/bin/abctl
+
+# Abctl-Version überprüfen
+#RUN abctl version
+
+# Airbyte installieren
+#RUN ["abctl", "local", "install"]
+#RUN ["abctl", "local", "credentials"]
+
+# Standardbefehl
+CMD ["abctl", "--help"]

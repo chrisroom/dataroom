@@ -1,0 +1,62 @@
+# Verwenden des schlanken Ubuntu-Images
+FROM ubuntu:20.04
+#FROM docker:20.10.7-dind
+
+# Umgebungsvariablen setzen
+ENV PATH="/root/.airbyte/bin:$PATH"
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Installiere notwendige Abhängigkeiten
+RUN apt-get update && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release \
+    tzdata \
+    sudo \
+    software-properties-common \
+    && rm -rf /var/lib/apt/lists/*
+
+# Setze die Zeitzone auf "UTC" ohne Interaktion
+RUN echo "Etc/UTC" > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata
+
+# Füge den offiziellen Docker GPG-Schlüssel hinzu
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - 
+
+# Füge das Docker-Repository hinzu
+RUN echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+
+# Installiere Docker und Docker-CLI
+RUN apt-get update && apt-get install -y \
+    #docker.io \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    && rm -rf /var/lib/apt/lists/*
+
+# Docker-Dienst starten (wird für abctl benötigt)
+RUN service docker start
+
+# Installiere kind
+RUN curl -Lo /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/v0.17.0/kind-linux-amd64 && \
+    chmod +x /usr/local/bin/kind
+
+# Erstelle Kubernetes-Cluster mit kind
+RUN kind create cluster --name airbyte
+
+# Setze Docker-Daemon als Root-Benutzer
+RUN usermod -aG docker root
+
+# Installieren von abctl
+RUN curl -LsfS https://get.airbyte.com | bash -
+
+# Lokale Installation von Airbyte
+RUN abctl local install
+
+# Exponiere die Standardports für Airbyte
+EXPOSE 8000 3000
+
+# Starte den Container
+CMD ["dockerd"]

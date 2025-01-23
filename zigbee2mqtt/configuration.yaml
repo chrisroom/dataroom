@@ -1,0 +1,40 @@
+version: 4
+homeassistant:
+  enabled: true
+frontend:
+  enabled: true
+  port: 9080 #8080
+#serial:
+#  port: /dev/ttyUSB0
+mqtt:
+  base_topic: zigbee2mqtt
+  server: 'mqtt://mosquitto:1883'
+  #server: mqtt://localhost
+advanced:
+  network_key:
+    - 205
+    - 89
+    - 154
+    - 166
+    - 138
+    - 211
+    - 56
+    - 208
+    - 87
+    - 86
+    - 157
+    - 231
+    - 110
+    - 167
+    - 90
+    - 24
+  pan_id: 33356
+  ext_pan_id:
+    - 254
+    - 26
+    - 54
+    - 26
+    - 220
+    - 41
+    - 238
+    - 98

@@ -1,0 +1,10 @@
+CREATE DATABASE dagster_repo;
+CREATE DATABASE openmetadata;
+CREATE DATABASE metabase;
+CREATE DATABASE superset;
+
+--CREATE USER dagster WITH ENCRYPTED PASSWORD 'dagster';
+GRANT ALL PRIVILEGES ON DATABASE dagster_repo TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE openmetadata TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE metabase TO postgres;
+GRANT ALL PRIVILEGES ON DATABASE superset TO postgres;

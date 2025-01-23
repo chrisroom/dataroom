@@ -1,0 +1,54 @@
+docker-compose build web
+docker-compose up -d --build
+docker-compose down --volumes --rmi all
+
+docker build -t <name>:latest ./<path>
+docker build ---no-cache dbt
+
+docker exec -t -i <ID> bash
+
+python manage.py check --database default
+python manage.py migrate
+python manage.py makemigrations polls
+python manage.py sqlmigrate polls 0001
+python manage.py shell
+python manage.py createsuperuser --noinput
+python manage.py test polls
+
+python -m venv venv
+
+docker run -d -p  8000:8000 djangoapp:0.0.1
+docker run --publish 8000:8000 djangoapp:0.0.1
+
+docker run -it dbt /bin/bash
+
+
+docker up <Container> --build
+docker logs <Container>
+docker ps
+
+sudo systemctl stop docker
+rm -f ~/.docker/config.json
+sudo systemctl start docker
+
+ssh-keygen -f ~/.ssh/id_rsa -y > ~/.ssh/id_rsa.pub
+docker build -t example --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)" --squash .
+eval `ssh-agent -s`
+ssh-copy-id h3003639.stratoserver.net
+ssh-copy-id root@h3003639.stratoserver.net
+ssh-keyscan -H h3003639.stratoserver.net ~/.ssh/known_hosts
+ssh-add
+
+    docker save djangoapp | ssh -C root@h3003639.stratoserver.net docker load
+docker context create remote --description "Strato" --docker "host=ssh://root@h3003639.stratoserver.net"
+docker context use remote
+
+
+docker system prune --volumes -af
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
+docker rmi $(docker images -q)
+
+watch -n 0.5 'docker ps'
+docker ps -a
+docker logs -t <ID>

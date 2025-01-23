@@ -1,0 +1,36 @@
+# Verwenden des schlanken Python-Images
+FROM python:3.10-slim
+
+# Umgebungsvariablen setzen
+ENV PATH="/root/.airbyte/bin:$PATH"
+
+# Notwendige Tools installieren
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    docker.io \
+    ca-certificates \
+    gnupg \
+    jq \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installieren von abctl
+RUN curl -LsfS https://get.airbyte.com | bash -
+
+# Docker-Dienst starten (wird für abctl benötigt)
+RUN service docker start
+
+# Entfernen eines vorherigen virtuellen Environments (falls vorhanden)
+RUN rm -rf /app/venv
+
+# Erstellen eines neuen virtuellen Environments
+RUN python3 -m venv /app/venv
+
+# Aktivieren des virtuellen Environments und Installieren von Airbyte (abctl)
+RUN . /app/venv/bin/activate && abctl local install
+
+# Exponieren der Standardports für Airbyte
+EXPOSE 8000 3000
+
+# Start des Containers
+CMD ["bash"]

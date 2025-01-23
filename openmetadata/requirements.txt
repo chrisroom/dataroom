@@ -1,0 +1,2 @@
+openmetadata-ingestion[postgres]
+psycopg2

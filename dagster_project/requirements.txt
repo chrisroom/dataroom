@@ -1,0 +1,7 @@
+dagster==1.9.6
+dagit==1.9.6
+dagster-docker>=0.25.6
+dagster-airbyte>=0.25.6
+dagster-postgres>=0.25.6
+#dagster-postgres==1.9.6
+psycopg2-binary==2.9.7
