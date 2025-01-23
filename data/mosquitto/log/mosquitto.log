@@ -128,3 +128,8 @@ To fix this, use `chmod 0700 /mosquitto/data//mosquitto.db.new`.
 1737603932: Opening ipv4 listen socket on port 1883.
 1737603932: Opening ipv6 listen socket on port 1883.
 1737603932: mosquitto version 2.0.20 running
+1737605733: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1737605733: Warning: File /mosquitto/data//mosquitto.db.new has world readable permissions. Future versions will refuse to load this file.
+To fix this, use `chmod 0700 /mosquitto/data//mosquitto.db.new`.
+1737605733: Warning: File /mosquitto/data//mosquitto.db.new owner is not mosquitto. Future versions will refuse to load this file.To fix this, use `chown mosquitto /mosquitto/data//mosquitto.db.new`.
+1737605733: Warning: File /mosquitto/data//mosquitto.db.new group is not mosquitto. Future versions will refuse to load this file.
